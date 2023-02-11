@@ -1,9 +1,8 @@
 # Example:
-#   $ ros2 launch velodyne_driver velodyne_driver_node-VLP16-launch.py
-#   $ ros2 launch velodyne_pointcloud velodyne_transform_node-VLP16-launch.py
+#   $ ros2 launch rslidar_sdk start.py
 #
 #   SLAM:
-#   $ ros2 launch rtabmap_ros vlp16.launch.py
+#   $ ros2 launch rtabmap_ros rslidar_robosense.launch.py
 
 
 from launch import LaunchDescription
@@ -24,14 +23,14 @@ def generate_launch_description():
             description='Use simulation (Gazebo) clock if true'),
         
         DeclareLaunchArgument(
-            'deskewing', default_value='false', # was true
+            'deskewing', default_value='false',
             description='Enable lidar deskewing'),
           
         # Nodes to launch
         Node(
             package='rtabmap_ros', executable='icp_odometry', output='screen',
             parameters=[{
-              'frame_id':'rslidar',
+              'frame_id':'rslidar', #base_link
               'odom_frame_id':'odom',
               'wait_for_transform':0.2,
               'expected_update_rate':15.0,
