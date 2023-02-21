@@ -14,7 +14,7 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time')
     deskewing = LaunchConfiguration('deskewing')
-    
+
     return LaunchDescription([
 
         # Launch arguments
@@ -32,7 +32,7 @@ def generate_launch_description():
             parameters=[{
               'frame_id':'rslidar', #base_link
               'odom_frame_id':'odom',
-              'wait_for_transform':0.2,
+              'wait_for_transform':0.3, # 0.2
               'expected_update_rate':15.0,
               'deskewing':deskewing,
               'use_sim_time':use_sim_time,
@@ -56,7 +56,8 @@ def generate_launch_description():
               'OdomF2M/ScanSubtractRadius', '0.1',
               'OdomF2M/ScanMaxSize', '15000',
               'OdomF2M/BundleAdjustment', 'false',
-            ]),
+            ]
+            ),
             
         Node(
             package='rtabmap_ros', executable='point_cloud_assembler', output='screen',
@@ -76,8 +77,8 @@ def generate_launch_description():
               'subscribe_depth':False,
               'subscribe_rgb':False,
               'subscribe_scan_cloud':True,
-              'approx_sync':False,
-              'wait_for_transform':0.2,
+              'approx_sync':True, # False
+              'wait_for_transform': 0.3, #0.2,
               'use_sim_time':use_sim_time,
             }],
             remappings=[
@@ -114,7 +115,7 @@ def generate_launch_description():
               'odom_frame_id':'odom',
               'subscribe_odom_info':True,
               'subscribe_scan_cloud':True,
-              'approx_sync':False,
+              'approx_sync':True, # False
               'use_sim_time':use_sim_time,
             }],
             remappings=[
